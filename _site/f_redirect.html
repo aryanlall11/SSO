@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<title>Malicious Redirect | Single Sign-On</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<!--[if lte IE 8]><script src="/SSO/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/SSO/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/SSO/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/SSO/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Header -->
+<header id="header">
+	<a href="/SSO/" class="logo"><strong>Single Sign-On</strong> <span>SSO</span></a>
+	<nav>
+		<a href="#menu">Menu</a>
+	</nav>
+</header>
+
+<!-- Menu -->
+<nav id="menu">
+	<ul class="links">
+        
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		        <li><a href="/SSO/">Home</a></li>
+	    	
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		
+		    
+		
+		    
+		        <li><a href="/SSO/a_introduction.html">What is SSO ?</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/b_features.html">Features</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/c_mech.html">How it works ?</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/d_auth_types.html">Different protocols of SSO</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/e_token_hijack.html">Token Hijack</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/f_redirect.html">Malicious Redirect</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/g_advantages.html">Advantages</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/h_disadvantages.html">Disadvantages</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/i_challenges.html">Challenges</a></li>
+		    
+		
+		    
+		
+		    
+		        <li><a href="/SSO/j_flaws.html">Security Flaws</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/k_oauth.html">OAuth</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/l_about.html">About Us</a></li>
+		    
+		
+	</ul>
+</nav>
+ 
+    
+    
+<!-- Main -->
+<div id="main" class="alt">
+
+<!-- One -->
+<section id="one">
+	<div class="inner">
+		<header class="major">
+			<h1>Malicious Redirect</h1>
+		</header>
+		
+		<p>Before we begin, we would recommend the viewer to check out the <strong>Token Hijack</strong> demonstration for a better understanding of the mechanism.</p>
+
+<hr />
+
+<p>In this page, we will try to demonstrate on how an attacker can try to modify the <strong>Redirect URL</strong> to some mallicious site, and thus could easily obtain the access token.</p>
+
+<p>We have used the SSO implementation provided by <a href="https://auth0.com/">Auth0</a>. Have a look at the following demonstration which guides on how a user can be redirected to some mallicious site.</p>
+<div style="position:relative;padding-bottom:56.25%;">
+ <iframe style="width:100%;height:100%;position:absolute;left:0px;top:0px;" frameborder="0" width="100%" height="100%" allowfullscreen="" allow="autoplay" src="
+https://drive.google.com/file/d/1RHrMDVE4YUSlxvO0-6Foz7D510qCkhJD/preview
+">
+</iframe>
+</div>
+<hr style="height:2px;border-width:0;color:gray;background-color:blue" />
+
+<p>The detailed steps and the explanation of the above demonstration is as follows -</p>
+
+<ol>
+  <li>
+    <p><strong>Request for Authentication</strong></p>
+
+    <p>The user clicks on the “Login via Google” button and thus it requests the Auth0 server to authenticate the user.</p>
+    <p align="center">
+		<img src="assets/images/demo1/1.png" width="75%" />
+</p>
+  </li>
+  <li>
+    <p><strong>Redirection to Authorization server</strong></p>
+
+    <p>The user is further redirected to the Google authorization server with the following request. This contains all the parameters that would be verified by the Google authorization server.</p>
+    <p align="center">
+		<img src="assets/images/demo2/1.png" width="75%" />
+</p>
+    <p>In response, it demands an Authorization token which could be seen in the “<strong>response_type</strong>” field. The <strong>“scope”</strong> parameter defines the resources that Auth0 needs permission for, like email, profile, etc. The “<strong>redirect_uri</strong>” defines the URL to which the user would be redirected once authenticated.</p>
+  </li>
+  <li>
+    <p><strong>Inserting Malicious Website</strong></p>
+
+    <p>An attacker can modify the “redirect_uri” field in the above request. In the above demonstration, the redirect URL is changed to some <strong>www.enemy.com/callback</strong> URL, which provides a gateway for the access token to be visible on the attacker side. All this happens without the knowledge of the user!</p>
+    <p align="center">
+		<img src="assets/images/demo2/2.png" width="75%" />
+</p>
+    <p>Rest of the process remains same as the token hijack activity.</p>
+  </li>
+  <li>
+    <p><strong>Saviour! Unauthorized Redirects</strong></p>
+
+    <p>As a security measure, the Auth0 server allows the user to configure the authorized/allowed redirect URLs. By setting these fields appropriately, the user can ensure that he/she gets redirected to only trusted websites, thus preventing any sort of malicious activity.</p>
+    <p align="center">
+     <img src="assets/images/demo2/3.png" width="75%" />
+ </p>
+  </li>
+  <li>
+    <p><strong>Google server rejects the Authentication</strong></p>
+
+    <p>Due to the above setting, the google authorization server rejects the request and diplays an error message saying that the redirect URL doesn’t matches the one authorized for the OAuth client</p>
+    <p align="center">
+		<img src="assets/images/demo2/4.png" width="50.25%" />
+</p>
+  </li>
+</ol>
+<hr style="height:2px;border-width:0;color:gray;background-color:green" />
+
+<p>Thus, it becomes very important to carefully set the security parameters of the authentication server. These demonstrations help in increasing the user awareness about different security aspects and how to handle them carefully!</p>
+
+	</div>
+</section>
+
+</div>
+
+    <!-- Contact -->
+<!-- section id="contact">
+	<div class="inner">
+		<section>
+			<form action="https://formspree.io/" method="POST">
+				<div class="field half first">
+					<label for="name">Name</label>
+					<input type="text" name="name" id="name" />
+				</div>
+				<div class="field half">
+					<label for="email">Email</label>
+					<input type="text" name="_replyto" id="email" />
+				</div>
+				<div class="field">
+					<label for="message">Message</label>
+					<textarea name="message" id="message" rows="6"></textarea>
+				</div>
+				<ul class="actions">
+					<li><input type="submit" value="Send Message" class="special" /></li>
+					<li><input type="reset" value="Clear" /></li>
+				</ul>
+			</form>
+		</section>
+		<section class="split">
+			<section>
+				<div class="contact-method">
+					<span class="icon alt fa-envelope"></span>
+					<h3>Email</h3>
+					<a href="mailto:"></a>
+				</div>
+			</section>
+			<section>
+				<div class="contact-method">
+					<span class="icon alt fa-phone"></span>
+					<h3>Phone</h3>
+					<a href="tel:"></a>
+				</div>
+			</section>
+			<section>
+				<div class="contact-method">
+					<span class="icon alt fa-home"></span>
+					<h3>Address</h3>
+					<span>
+					
+					
+					
+					
+					
+					</span>
+				</div>
+			</section>
+		</section>
+	</div>
+</section>
+
+	<footer id="footer">
+		<div class="inner">
+			<ul class="icons">
+				
+					
+						<li>
+							<a href="https://github.com/andrewbanchich" class="icon alt fa-github" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+								<span class="label">GitHub</span>
+							</a>
+						</li>
+					
+				
+					
+				
+					
+						<li>
+							<a href="https://plus.google.com/u/0/+AndrewBanchich" class="icon alt fa-google-plus" target="_blank" rel="noopener noreferrer" aria-label="Google-Plus">
+								<span class="label">Google-Plus</span>
+							</a>
+						</li>
+					
+				
+					
+				
+					
+						<li>
+							<a href="https://www.linkedin.com/in/andrew-banchich-a4ba1195" class="icon alt fa-linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+								<span class="label">LinkedIn</span>
+							</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="https://twitter.com/andrewbanchich" class="icon alt fa-twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+								<span class="label">Twitter</span>
+							</a>
+						</li>
+					
+				
+					
+				
+					
+				
+			</ul>
+			<ul class="copyright">
+				<li>&copy; Single Sign-On SSO</li>
+				<li>Design: <a href="https://html5up.net" target="_blank">HTML5 UP</a></li>
+				<li>Jekyll integration: <a href="http://andrewbanchi.ch" target="_blank">Andrew Banchich</a></li>
+
+			</ul>
+		</div>
+	</footer>
+
+</div-->
+
+<!-- Scripts -->
+	<script src="/SSO/assets/js/jquery.min.js"></script>
+	<script src="/SSO/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/SSO/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/SSO/assets/js/skel.min.js"></script>
+	<script src="/SSO/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/SSO/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/SSO/assets/js/main.js"></script>
+
+
+</body>
+
+</html>

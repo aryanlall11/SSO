@@ -1,0 +1,96 @@
+I"�<p>In this page, we will try to demonstrate on how an attacker can hijack a session token and reuse it in the future to log on to the corresponding web services.</p>
+
+<p>We have used the SSO implementation provided by <a href="https://auth0.com/">Auth0</a>. Have a look at the following demonstration which guides on how a token can be hijacked and reused in the future.</p>
+<div style="position:relative;padding-bottom:56.25%;">
+ <iframe style="width:100%;height:100%;position:absolute;left:0px;top:0px;" frameborder="0" width="100%" height="100%" allowfullscreen="" allow="autoplay" src="
+https://drive.google.com/file/d/1C1DdBT6JafLCVcKN0VOkuVQ-qrq_F6It/preview
+">
+</iframe>
+</div>
+<hr style="height:2px;border-width:0;color:gray;background-color:blue" />
+
+<p>The detailed steps and the explanation of the above demonstration is as follows -</p>
+
+<ol>
+  <li>
+    <p><strong>Request for Authentication</strong></p>
+
+    <p>The user clicks on the “Login via Google” button and thus it requests the Auth0 server to authenticate the user.</p>
+    <p align="center">
+		<img src="assets/images/demo1/1.png" width="75%" />
+</p>
+  </li>
+  <li>
+    <p><strong>Redirection to Authorization server</strong></p>
+
+    <p>The user is further redirected to the Google authorization server with the following request. This contains all the parameters that would be verified by the Google authorization server.</p>
+    <p align="center">
+		<img src="assets/images/demo1/2.png" width="75%" />
+</p>
+    <p>In response, it demands an Authorization token which could be seen in the “<strong>response_type</strong>” field. The <strong>“scope”</strong> parameter defines the resources that Auth0 needs permission for, like email, profile, etc. The “<strong>redirect_uri</strong>” defines the URL to which the user would be redirected once authenticated.</p>
+  </li>
+  <li>
+    <p><strong>Authorization Code</strong></p>
+
+    <p>Once the google server authenticates the user, it sends an authorization code to Auth0</p>
+    <p align="center">
+		<img src="assets/images/demo1/3.png" width="75%" />
+</p>
+  </li>
+  <li>
+    <p><strong>Request for Access Token</strong></p>
+
+    <p>Once the Auth0 receives the authorization code, it requests an access token from the google authorization server.</p>
+    <p align="center">
+		<img src="assets/images/demo1/4.png" width="75%" />
+</p>
+  </li>
+  <li>
+    <p><strong>Access Token granted</strong></p>
+
+    <p>Once the authorization code is verified, the google server finally sends an <strong>Access token</strong> to Auth0. Further, this is used by auth0 to exchange information such as email, profile, etc. from the google resource server.</p>
+    <p align="center">
+		<img src="assets/images/demo1/5.png" width="75%" />
+</p>
+  </li>
+  <li>
+    <p><strong>User Authenticated</strong></p>
+
+    <p>The user is finally authenticated and it redirected to the web service web page.</p>
+    <p align="center">
+		<img src="assets/images/demo1/6.png" width="75%" />
+</p>
+  </li>
+</ol>
+<hr style="height:2px;border-width:0;color:gray;background-color:red" />
+
+<h2 id="lets-hijack-p"><strong>Let’s Hijack :P</strong></h2>
+<p><br />
+We can send the obtained access token to the repeater and replay it in the future to access the web services corresponding to the user’s account. This exercise has been demonstrated in the video and the detailed steps are as follows -</p>
+<ol>
+  <li>
+    <p><strong>Reusing Access Token</strong></p>
+
+    <p>The obtained access token is reused and we have successfully logged in to the web service 1. All the user details have been exposed without the need of user actually logging in.</p>
+    <p align="center">
+		<img src="assets/images/demo1/7.png" width="75%" />
+</p>
+  </li>
+  <li>
+    <p><strong>Reusing Access Token for different Web service</strong></p>
+
+    <p>The access token might also be used for logging in to other web services of the same domain. For ex - here we have demonstrated that by using the same access token, the attacker is also able to access the <strong>web service 2</strong>, without the need of user actually logging in! This imposes a great threat to all the user applications.</p>
+    <p align="center">
+		<img src="assets/images/demo1/8.png" width="75%" />
+</p>
+  </li>
+</ol>
+<hr style="height:2px;border-width:0;color:gray;background-color:green" />
+
+<h2 id="prevention-of-token-hijack"><strong>Prevention of Token Hijack</strong></h2>
+<p><br />
+As a security measure, the Auth0 server allows the user to configure the properties of the Token such as <strong>Expiration time</strong>, <strong>refreshing Token expiration</strong>, etc. By setting these fields appropriately, the user can ensure that the token can’t be reused after it gets expired.</p>
+<p align="center">
+	<img src="assets/images/demo1/9.png" width="75%" />
+</p>
+:ET

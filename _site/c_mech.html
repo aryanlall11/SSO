@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<title>How it works ? | Single Sign-On</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<!--[if lte IE 8]><script src="/SSO/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/SSO/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/SSO/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/SSO/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Header -->
+<header id="header">
+	<a href="/SSO/" class="logo"><strong>Single Sign-On</strong> <span>SSO</span></a>
+	<nav>
+		<a href="#menu">Menu</a>
+	</nav>
+</header>
+
+<!-- Menu -->
+<nav id="menu">
+	<ul class="links">
+        
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		        <li><a href="/SSO/">Home</a></li>
+	    	
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		
+		    
+		
+		    
+		        <li><a href="/SSO/a_introduction.html">What is SSO ?</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/b_features.html">Features</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/c_mech.html">How it works ?</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/d_auth_types.html">Different protocols of SSO</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/e_token_hijack.html">Token Hijack</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/f_redirect.html">Malicious Redirect</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/g_advantages.html">Advantages</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/h_disadvantages.html">Disadvantages</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/i_challenges.html">Challenges</a></li>
+		    
+		
+		    
+		
+		    
+		        <li><a href="/SSO/j_flaws.html">Security Flaws</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/k_oauth.html">OAuth</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/l_about.html">About Us</a></li>
+		    
+		
+	</ul>
+</nav>
+ 
+    
+    
+<!-- Main -->
+<div id="main" class="alt">
+
+<!-- One -->
+<section id="one">
+	<div class="inner">
+		<header class="major">
+			<h1>How it works ?</h1>
+		</header>
+		
+		<p>Single Sign On works by having a <strong>central server</strong>, which all the applications trust. When you login for the first time a <strong>cookie</strong> gets created on this central server. Then, whenever you try to access a second application, you get redirected to the central server, if you already have a cookie there, you will get redirected directly to the app with a token, without login prompts, which means you’re already logged in.</p>
+<p align="center">
+	<img src="assets/images/auth0.png" width="65%" />
+</p>
+
+<p>Different SSO protocols (like SAML, LDAP, OpenID, etc.) share session information in different ways, but the essential concept is the same: there is a central domain (or <strong>Identity provider</strong>), through which authentication is performed, and then the session is shared with other domains in some way.</p>
+
+<p>The central domain generates a signed <strong>Token</strong>, let’s say a JSON Web Token (JWT) which may be encrypted using JSON Web Encryption (JWE). This token may then be passed to the client and used by the authentication domain as well as any other domains. The token can be passed to the original domain by a redirect and it contains all the information needed to identify the user for the domain requiring authentication. As the token is signed, it cannot be modified in any way by the client. Whenever users go to a domain that requires authentication, they are redirected to the authentication domain. As users are already logged-in at that domain, they can be immediately redirected to the original domain with the necessary authentication token.</p>
+<p align="center">
+	<img src="assets/images/workflow.png" style="width: 55%" />
+</p>
+
+<p>A detailed workflow of the SSO is described as follows -</p>
+<ol>
+  <li>A user browses to the application or website they want access to, the <strong>Service Provider</strong>.</li>
+  <li>The Service Provider sends a token that contains some information about the user, like their name, email address, to the SSO system, or the Identity Provider, as part of a request to authenticate the user.</li>
+  <li>The Identity Provider first checks to see whether the user has already been authenticated, in which case it will grant the user access to the Service Provider application and skip to step 5.</li>
+  <li>If the user hasn’t logged in, they will be prompted to do so by providing the credentials required by the Identity Provider.</li>
+  <li>Once the Identity Provider validates the credentials provided, it will send a token back to the Service Provider confirming a successful authentication. This token is passed through the user’s browser to the Service Provider.</li>
+  <li>The token that is received by the Service Provider is validated according to the trust relationship that was set up between the Service Provider and the Identity Provider during the initial configuration.</li>
+  <li>Finally, the user is granted access to the Service Provider.</li>
+</ol>
+
+	</div>
+</section>
+
+</div>
+
+    <!-- Contact -->
+<!-- section id="contact">
+	<div class="inner">
+		<section>
+			<form action="https://formspree.io/" method="POST">
+				<div class="field half first">
+					<label for="name">Name</label>
+					<input type="text" name="name" id="name" />
+				</div>
+				<div class="field half">
+					<label for="email">Email</label>
+					<input type="text" name="_replyto" id="email" />
+				</div>
+				<div class="field">
+					<label for="message">Message</label>
+					<textarea name="message" id="message" rows="6"></textarea>
+				</div>
+				<ul class="actions">
+					<li><input type="submit" value="Send Message" class="special" /></li>
+					<li><input type="reset" value="Clear" /></li>
+				</ul>
+			</form>
+		</section>
+		<section class="split">
+			<section>
+				<div class="contact-method">
+					<span class="icon alt fa-envelope"></span>
+					<h3>Email</h3>
+					<a href="mailto:"></a>
+				</div>
+			</section>
+			<section>
+				<div class="contact-method">
+					<span class="icon alt fa-phone"></span>
+					<h3>Phone</h3>
+					<a href="tel:"></a>
+				</div>
+			</section>
+			<section>
+				<div class="contact-method">
+					<span class="icon alt fa-home"></span>
+					<h3>Address</h3>
+					<span>
+					
+					
+					
+					
+					
+					</span>
+				</div>
+			</section>
+		</section>
+	</div>
+</section>
+
+	<footer id="footer">
+		<div class="inner">
+			<ul class="icons">
+				
+					
+						<li>
+							<a href="https://github.com/andrewbanchich" class="icon alt fa-github" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+								<span class="label">GitHub</span>
+							</a>
+						</li>
+					
+				
+					
+				
+					
+						<li>
+							<a href="https://plus.google.com/u/0/+AndrewBanchich" class="icon alt fa-google-plus" target="_blank" rel="noopener noreferrer" aria-label="Google-Plus">
+								<span class="label">Google-Plus</span>
+							</a>
+						</li>
+					
+				
+					
+				
+					
+						<li>
+							<a href="https://www.linkedin.com/in/andrew-banchich-a4ba1195" class="icon alt fa-linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+								<span class="label">LinkedIn</span>
+							</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="https://twitter.com/andrewbanchich" class="icon alt fa-twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+								<span class="label">Twitter</span>
+							</a>
+						</li>
+					
+				
+					
+				
+					
+				
+			</ul>
+			<ul class="copyright">
+				<li>&copy; Single Sign-On SSO</li>
+				<li>Design: <a href="https://html5up.net" target="_blank">HTML5 UP</a></li>
+				<li>Jekyll integration: <a href="http://andrewbanchi.ch" target="_blank">Andrew Banchich</a></li>
+
+			</ul>
+		</div>
+	</footer>
+
+</div-->
+
+<!-- Scripts -->
+	<script src="/SSO/assets/js/jquery.min.js"></script>
+	<script src="/SSO/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/SSO/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/SSO/assets/js/skel.min.js"></script>
+	<script src="/SSO/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/SSO/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/SSO/assets/js/main.js"></script>
+
+
+</body>
+
+</html>

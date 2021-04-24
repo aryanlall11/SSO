@@ -1,0 +1,26 @@
+I"=<h2 id="session-management-flaws">Session Management Flaws</h2>
+<ul>
+  <li>Session cookies and authentication tokens unprotected (e.g. clear text) between client and server.</li>
+  <li>Missing session invalidation at idle-timeout and user logout.</li>
+  <li>New session token to prevent re-use for authentication.</li>
+  <li>Non-secure storage in a session in cleartext.</li>
+  <li>Lack of strong random generation of session cookies and identifiers.</li>
+  <li>Lack of coordinated session between application tiers.</li>
+</ul>
+
+<h2 id="authentication-flaws">Authentication Flaws</h2>
+<ul>
+  <li>Mandatory to restrict access to validated users.</li>
+  <li>Strength depends on application risk/data classification.</li>
+  <li>Compliant with regulations/standards.</li>
+  <li>Provide for secure password and account management.</li>
+  <li>Mitigates brute-forcing and credentials harvesting.</li>
+  <li>Mitigates Man in The Middle Attacks (MiTM).</li>
+</ul>
+
+<h2 id="authorization-flaws">Authorization Flaws</h2>
+<ul>
+  <li><a href="https://www.ionos.com/digitalguide/server/security/what-is-role-based-access-control-rbac/">Flaws in Role-Based Access Controls (RBAC)</a></li>
+  <li><a href="https://portswigger.net/web-security/access-control">Flaws regarding horizontal and vertical privilege escalation &amp; forced browsing.</a></li>
+</ul>
+:ET

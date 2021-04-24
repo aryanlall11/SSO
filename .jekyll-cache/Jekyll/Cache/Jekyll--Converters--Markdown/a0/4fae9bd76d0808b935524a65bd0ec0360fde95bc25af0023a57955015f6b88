@@ -1,0 +1,65 @@
+I"�<p>Before we begin, we would recommend the viewer to check out the <strong>Token Hijack</strong> demonstration for a better understanding of the mechanism.</p>
+
+<hr />
+
+<p>In this page, we will try to demonstrate on how an attacker can try to modify the <strong>Redirect URL</strong> to some mallicious site, and thus could easily obtain the access token.</p>
+
+<p>We have used the SSO implementation provided by <a href="https://auth0.com/">Auth0</a>. Have a look at the following demonstration which guides on how a user can be redirected to some mallicious site.</p>
+<div style="position:relative;padding-bottom:56.25%;">
+ <iframe style="width:100%;height:100%;position:absolute;left:0px;top:0px;" frameborder="0" width="100%" height="100%" allowfullscreen="" allow="autoplay" src="
+https://drive.google.com/file/d/1RHrMDVE4YUSlxvO0-6Foz7D510qCkhJD/preview
+">
+</iframe>
+</div>
+<hr style="height:2px;border-width:0;color:gray;background-color:blue" />
+
+<p>The detailed steps and the explanation of the above demonstration is as follows -</p>
+
+<ol>
+  <li>
+    <p><strong>Request for Authentication</strong></p>
+
+    <p>The user clicks on the “Login via Google” button and thus it requests the Auth0 server to authenticate the user.</p>
+    <p align="center">
+		<img src="assets/images/demo1/1.png" width="75%" />
+</p>
+  </li>
+  <li>
+    <p><strong>Redirection to Authorization server</strong></p>
+
+    <p>The user is further redirected to the Google authorization server with the following request. This contains all the parameters that would be verified by the Google authorization server.</p>
+    <p align="center">
+		<img src="assets/images/demo2/1.png" width="75%" />
+</p>
+    <p>In response, it demands an Authorization token which could be seen in the “<strong>response_type</strong>” field. The <strong>“scope”</strong> parameter defines the resources that Auth0 needs permission for, like email, profile, etc. The “<strong>redirect_uri</strong>” defines the URL to which the user would be redirected once authenticated.</p>
+  </li>
+  <li>
+    <p><strong>Inserting Malicious Website</strong></p>
+
+    <p>An attacker can modify the “redirect_uri” field in the above request. In the above demonstration, the redirect URL is changed to some <strong>www.enemy.com/callback</strong> URL, which provides a gateway for the access token to be visible on the attacker side. All this happens without the knowledge of the user!</p>
+    <p align="center">
+		<img src="assets/images/demo2/2.png" width="75%" />
+</p>
+    <p>Rest of the process remains same as the token hijack activity.</p>
+  </li>
+  <li>
+    <p><strong>Saviour! Unauthorized Redirects</strong></p>
+
+    <p>As a security measure, the Auth0 server allows the user to configure the authorized/allowed redirect URLs. By setting these fields appropriately, the user can ensure that he/she gets redirected to only trusted websites, thus preventing any sort of malicious activity.</p>
+    <p align="center">
+     <img src="assets/images/demo2/3.png" width="75%" />
+ </p>
+  </li>
+  <li>
+    <p><strong>Google server rejects the Authentication</strong></p>
+
+    <p>Due to the above setting, the google authorization server rejects the request and diplays an error message saying that the redirect URL doesn’t matches the one authorized for the OAuth client</p>
+    <p align="center">
+		<img src="assets/images/demo2/4.png" width="50.25%" />
+</p>
+  </li>
+</ol>
+<hr style="height:2px;border-width:0;color:gray;background-color:green" />
+
+<p>Thus, it becomes very important to carefully set the security parameters of the authentication server. These demonstrations help in increasing the user awareness about different security aspects and how to handle them carefully!</p>
+:ET

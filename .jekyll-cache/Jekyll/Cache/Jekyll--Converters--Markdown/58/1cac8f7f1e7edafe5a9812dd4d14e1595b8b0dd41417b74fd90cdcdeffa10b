@@ -1,0 +1,18 @@
+I"ü<p>We have developed this website as a part of the Computer Network &amp; Security (CS416) course project. Our team consists of the following members -</p>
+
+<ol>
+  <li><strong><a href="https://aryanlall11.github.io/">Aryan Lall</a></strong>, 4th year UG, EE</li>
+  <li><strong>Utkarsh Bhalode</strong>, 4th year UG, EE</li>
+  <li><strong>Sumrit Gupta</strong>, 4th year UG, EE</li>
+  <li><strong>Bhavish Kulur</strong>, 4th year UG, EE</li>
+</ol>
+
+<hr />
+
+<p>How many passwords and login details can you remember?? That sounds like a very unnecessary question, right? Now, this could have been an appropriate question if you can imagine the world without SSO (Single sign-on). SSO authentication is now required more than ever. Nowadays, almost every website requires some form of authentication to access its features and content. With the number of websites and services rising, a <strong>centralized</strong> login system has become a necessity.</p>
+
+<p>Our aim was to develop an interactive website which explains the underlying mechanisms of SSO, itâ€™s features, pros, and cons. We have also explained and demonstrated various security parameters that help in increasing the user awareness about different security aspects and how to handle them carefully.</p>
+
+<hr />
+
+:ET

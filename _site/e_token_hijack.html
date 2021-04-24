@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<title>Token Hijack | Single Sign-On</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<!--[if lte IE 8]><script src="/SSO/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/SSO/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/SSO/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/SSO/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Header -->
+<header id="header">
+	<a href="/SSO/" class="logo"><strong>Single Sign-On</strong> <span>SSO</span></a>
+	<nav>
+		<a href="#menu">Menu</a>
+	</nav>
+</header>
+
+<!-- Menu -->
+<nav id="menu">
+	<ul class="links">
+        
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		        <li><a href="/SSO/">Home</a></li>
+	    	
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		
+		    
+		
+		    
+		        <li><a href="/SSO/a_introduction.html">What is SSO ?</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/b_features.html">Features</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/c_mech.html">How it works ?</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/d_auth_types.html">Different protocols of SSO</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/e_token_hijack.html">Token Hijack</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/f_redirect.html">Malicious Redirect</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/g_advantages.html">Advantages</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/h_disadvantages.html">Disadvantages</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/i_challenges.html">Challenges</a></li>
+		    
+		
+		    
+		
+		    
+		        <li><a href="/SSO/j_flaws.html">Security Flaws</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/k_oauth.html">OAuth</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/l_about.html">About Us</a></li>
+		    
+		
+	</ul>
+</nav>
+ 
+    
+    
+<!-- Main -->
+<div id="main" class="alt">
+
+<!-- One -->
+<section id="one">
+	<div class="inner">
+		<header class="major">
+			<h1>Token Hijack</h1>
+		</header>
+		
+		<p>In this page, we will try to demonstrate on how an attacker can hijack a session token and reuse it in the future to log on to the corresponding web services.</p>
+
+<p>We have used the SSO implementation provided by <a href="https://auth0.com/">Auth0</a>. Have a look at the following demonstration which guides on how a token can be hijacked and reused in the future.</p>
+<div style="position:relative;padding-bottom:56.25%;">
+ <iframe style="width:100%;height:100%;position:absolute;left:0px;top:0px;" frameborder="0" width="100%" height="100%" allowfullscreen="" allow="autoplay" src="
+https://drive.google.com/file/d/1C1DdBT6JafLCVcKN0VOkuVQ-qrq_F6It/preview
+">
+</iframe>
+</div>
+<hr style="height:2px;border-width:0;color:gray;background-color:blue" />
+
+<p>The detailed steps and the explanation of the above demonstration is as follows -</p>
+
+<ol>
+  <li>
+    <p><strong>Request for Authentication</strong></p>
+
+    <p>The user clicks on the “Login via Google” button and thus it requests the Auth0 server to authenticate the user.</p>
+    <p align="center">
+		<img src="assets/images/demo1/1.png" width="75%" />
+</p>
+  </li>
+  <li>
+    <p><strong>Redirection to Authorization server</strong></p>
+
+    <p>The user is further redirected to the Google authorization server with the following request. This contains all the parameters that would be verified by the Google authorization server.</p>
+    <p align="center">
+		<img src="assets/images/demo1/2.png" width="75%" />
+</p>
+    <p>In response, it demands an Authorization token which could be seen in the “<strong>response_type</strong>” field. The <strong>“scope”</strong> parameter defines the resources that Auth0 needs permission for, like email, profile, etc. The “<strong>redirect_uri</strong>” defines the URL to which the user would be redirected once authenticated.</p>
+  </li>
+  <li>
+    <p><strong>Authorization Code</strong></p>
+
+    <p>Once the google server authenticates the user, it sends an authorization code to Auth0</p>
+    <p align="center">
+		<img src="assets/images/demo1/3.png" width="75%" />
+</p>
+  </li>
+  <li>
+    <p><strong>Request for Access Token</strong></p>
+
+    <p>Once the Auth0 receives the authorization code, it requests an access token from the google authorization server.</p>
+    <p align="center">
+		<img src="assets/images/demo1/4.png" width="75%" />
+</p>
+  </li>
+  <li>
+    <p><strong>Access Token granted</strong></p>
+
+    <p>Once the authorization code is verified, the google server finally sends an <strong>Access token</strong> to Auth0. Further, this is used by auth0 to exchange information such as email, profile, etc. from the google resource server.</p>
+    <p align="center">
+		<img src="assets/images/demo1/5.png" width="75%" />
+</p>
+  </li>
+  <li>
+    <p><strong>User Authenticated</strong></p>
+
+    <p>The user is finally authenticated and it redirected to the web service web page.</p>
+    <p align="center">
+		<img src="assets/images/demo1/6.png" width="75%" />
+</p>
+  </li>
+</ol>
+<hr style="height:2px;border-width:0;color:gray;background-color:red" />
+
+<h2 id="lets-hijack-p"><strong>Let’s Hijack :P</strong></h2>
+<p><br />
+We can send the obtained access token to the repeater and replay it in the future to access the web services corresponding to the user’s account. This exercise has been demonstrated in the video and the detailed steps are as follows -</p>
+<ol>
+  <li>
+    <p><strong>Reusing Access Token</strong></p>
+
+    <p>The obtained access token is reused and we have successfully logged in to the web service 1. All the user details have been exposed without the need of user actually logging in.</p>
+    <p align="center">
+		<img src="assets/images/demo1/7.png" width="75%" />
+</p>
+  </li>
+  <li>
+    <p><strong>Reusing Access Token for different Web service</strong></p>
+
+    <p>The access token might also be used for logging in to other web services of the same domain. For ex - here we have demonstrated that by using the same access token, the attacker is also able to access the <strong>web service 2</strong>, without the need of user actually logging in! This imposes a great threat to all the user applications.</p>
+    <p align="center">
+		<img src="assets/images/demo1/8.png" width="75%" />
+</p>
+  </li>
+</ol>
+<hr style="height:2px;border-width:0;color:gray;background-color:green" />
+
+<h2 id="prevention-of-token-hijack"><strong>Prevention of Token Hijack</strong></h2>
+<p><br />
+As a security measure, the Auth0 server allows the user to configure the properties of the Token such as <strong>Expiration time</strong>, <strong>refreshing Token expiration</strong>, etc. By setting these fields appropriately, the user can ensure that the token can’t be reused after it gets expired.</p>
+<p align="center">
+	<img src="assets/images/demo1/9.png" width="75%" />
+</p>
+
+	</div>
+</section>
+
+</div>
+
+    <!-- Contact -->
+<!-- section id="contact">
+	<div class="inner">
+		<section>
+			<form action="https://formspree.io/" method="POST">
+				<div class="field half first">
+					<label for="name">Name</label>
+					<input type="text" name="name" id="name" />
+				</div>
+				<div class="field half">
+					<label for="email">Email</label>
+					<input type="text" name="_replyto" id="email" />
+				</div>
+				<div class="field">
+					<label for="message">Message</label>
+					<textarea name="message" id="message" rows="6"></textarea>
+				</div>
+				<ul class="actions">
+					<li><input type="submit" value="Send Message" class="special" /></li>
+					<li><input type="reset" value="Clear" /></li>
+				</ul>
+			</form>
+		</section>
+		<section class="split">
+			<section>
+				<div class="contact-method">
+					<span class="icon alt fa-envelope"></span>
+					<h3>Email</h3>
+					<a href="mailto:"></a>
+				</div>
+			</section>
+			<section>
+				<div class="contact-method">
+					<span class="icon alt fa-phone"></span>
+					<h3>Phone</h3>
+					<a href="tel:"></a>
+				</div>
+			</section>
+			<section>
+				<div class="contact-method">
+					<span class="icon alt fa-home"></span>
+					<h3>Address</h3>
+					<span>
+					
+					
+					
+					
+					
+					</span>
+				</div>
+			</section>
+		</section>
+	</div>
+</section>
+
+	<footer id="footer">
+		<div class="inner">
+			<ul class="icons">
+				
+					
+						<li>
+							<a href="https://github.com/andrewbanchich" class="icon alt fa-github" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+								<span class="label">GitHub</span>
+							</a>
+						</li>
+					
+				
+					
+				
+					
+						<li>
+							<a href="https://plus.google.com/u/0/+AndrewBanchich" class="icon alt fa-google-plus" target="_blank" rel="noopener noreferrer" aria-label="Google-Plus">
+								<span class="label">Google-Plus</span>
+							</a>
+						</li>
+					
+				
+					
+				
+					
+						<li>
+							<a href="https://www.linkedin.com/in/andrew-banchich-a4ba1195" class="icon alt fa-linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+								<span class="label">LinkedIn</span>
+							</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="https://twitter.com/andrewbanchich" class="icon alt fa-twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+								<span class="label">Twitter</span>
+							</a>
+						</li>
+					
+				
+					
+				
+					
+				
+			</ul>
+			<ul class="copyright">
+				<li>&copy; Single Sign-On SSO</li>
+				<li>Design: <a href="https://html5up.net" target="_blank">HTML5 UP</a></li>
+				<li>Jekyll integration: <a href="http://andrewbanchi.ch" target="_blank">Andrew Banchich</a></li>
+
+			</ul>
+		</div>
+	</footer>
+
+</div-->
+
+<!-- Scripts -->
+	<script src="/SSO/assets/js/jquery.min.js"></script>
+	<script src="/SSO/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/SSO/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/SSO/assets/js/skel.min.js"></script>
+	<script src="/SSO/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/SSO/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/SSO/assets/js/main.js"></script>
+
+
+</body>
+
+</html>

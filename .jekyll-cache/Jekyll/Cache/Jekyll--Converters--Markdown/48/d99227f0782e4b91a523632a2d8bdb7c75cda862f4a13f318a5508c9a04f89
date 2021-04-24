@@ -1,0 +1,14 @@
+I"Å<ol>
+  <li>Using a single password increases the chances of password vulnerability</li>
+  <li>When SSO fails, access to all related systems is lost</li>
+  <li>Identity spoofing in user external accesses</li>
+  <li>Single point of failure</li>
+  <li>Single high-value target (attracts more attackers)</li>
+  <li>Necessary information disclosure between trusting site and SSO authority</li>
+  <li>Side channel attack against authentication step (theoretically; implementation dependent)</li>
+  <li>Lack of control over your user list</li>
+  <li>Yet another interface to maintain (added complexity)</li>
+  <li>You may never know how secure your system is or if there is a breach</li>
+  <li>Added cost</li>
+</ol>
+:ET

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<title>OAuth | Single Sign-On</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<!--[if lte IE 8]><script src="/SSO/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/SSO/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/SSO/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/SSO/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Header -->
+<header id="header">
+	<a href="/SSO/" class="logo"><strong>Single Sign-On</strong> <span>SSO</span></a>
+	<nav>
+		<a href="#menu">Menu</a>
+	</nav>
+</header>
+
+<!-- Menu -->
+<nav id="menu">
+	<ul class="links">
+        
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		        <li><a href="/SSO/">Home</a></li>
+	    	
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		
+		    
+		
+		    
+		        <li><a href="/SSO/a_introduction.html">What is SSO ?</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/b_features.html">Features</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/c_mech.html">How it works ?</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/d_auth_types.html">Different protocols of SSO</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/e_token_hijack.html">Token Hijack</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/f_redirect.html">Malicious Redirect</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/g_advantages.html">Advantages</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/h_disadvantages.html">Disadvantages</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/i_challenges.html">Challenges</a></li>
+		    
+		
+		    
+		
+		    
+		        <li><a href="/SSO/j_flaws.html">Security Flaws</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/k_oauth.html">OAuth</a></li>
+		    
+		
+		    
+		        <li><a href="/SSO/l_about.html">About Us</a></li>
+		    
+		
+	</ul>
+</nav>
+ 
+    
+    
+<!-- Main -->
+<div id="main" class="alt">
+
+<!-- One -->
+<section id="one">
+	<div class="inner">
+		<header class="major">
+			<h1>OAuth</h1>
+		</header>
+		
+		<p>OAuth is a delegated authorization framework for REST/APIs. It enables apps to obtain limited access (scopes) to a user’s data without giving away a user’s password. It decouples authentication from authorization and supports multiple use cases addressing different device capabilities. It supports server-to-server apps, browser-based apps, mobile/native apps, and consoles/TVs</p>
+
+<p>OAuth is built on the following central components:</p>
+
+<ul>
+  <li>Scopes and Consent</li>
+  <li>Actors</li>
+  <li>Clients</li>
+  <li>Tokens</li>
+  <li>Authorization Server</li>
+  <li>Flows</li>
+</ul>
+
+<h3 id="scopes-and-consent">Scopes and Consent</h3>
+<p>Bundles of permissions asked for by the client when requesting a token-</p>
+<p align="center">
+	<img src="https://user-images.githubusercontent.com/83104921/115947107-21691b80-a4e3-11eb-95a0-83e5efcbba25.png" width="50%" />
+</p>
+<p>Using this, the user has the ability to allow/revoke consent of his information to the applications</p>
+
+<h3 id="actors">Actors</h3>
+<ul>
+  <li>Resource Owner: owns the data in the resource server. Example, I own the resource of my twitter profile.</li>
+  <li>Resource Server: The API which stores data the application wants to access</li>
+  <li>Client: the application that wants to access your data</li>
+  <li>Authorization Server: The main engine of OAuth</li>
+</ul>
+
+<h3 id="clients">Clients</h3>
+<p>Clients can be public and confidential. 
+Confidential clients can be trusted to store a secret. <br />
+Public clients are browsers, mobile apps, and IoT devices.</p>
+
+<h3 id="tokens">Tokens</h3>
+<p>The user uses tokens to access the Resource Server.
+There are two types of Tokens:</p>
+<ul>
+  <li>Access tokens-short lived</li>
+  <li>Refresh token-long lived</li>
+</ul>
+
+<h4 id="access-tokens">Access Tokens</h4>
+<p>Access Tokens are used to access APIs. You don’t need a confidential client to get an access token. Because these tokens can be short lived and scale out, they can’t be revoked, you just have to wait for them to time out.</p>
+
+<h4 id="refresh-tokens">Refresh TOkens</h4>
+<p>To get a refresh token, applications typically require confidential clients with authentication.You use refresh tokens to get new acess tokens  Each time you refresh your access token you get a new cryptographically signed token. Key rotation is built into the system.
+Tokens are retrieved from endpoints on the authorization server.</p>
+
+<h3 id="authorization-server">Authorization Server</h3>
+<p>Tokens are retrieved from endpoints on the authorization server
+Authorization Server has:</p>
+<ul>
+  <li>Authorize Endpoint</li>
+  <li>Token Endpoint</li>
+  <li>Introspection Endpoint</li>
+  <li>Revocation Endpoint</li>
+</ul>
+
+<p>Once the user takes that authorization grant and hands that to the application, the client application no longer needs to use the browser to complete the OAuth flow to get the tokens.</p>
+
+<h3 id="flows">Flows</h3>
+<p align="center">
+	<img src="https://user-images.githubusercontent.com/83104921/115947573-2f6c6b80-a4e6-11eb-9dd1-0114f3077f67.png" width="60%" />
+</p>
+<h4 id="front-channel">Front Channel</h4>
+<p>Front Channel Flow where you authorize via user agent might look as follows:</p>
+
+<ul>
+  <li>Resource Owner starts flow to delegate access to protected resource</li>
+  <li>Client sends authorization request with desired scopes via browser redirect to the Authorize Endpoint on the Authorization Server</li>
+  <li>Authorization Server returns a consent dialog. Here user allows application for the scopes if user has already authenticated (cached session cookie) else it redirects to Resource Server to login.</li>
+  <li>The authorization grant is passed back to the application via browser redirect. This all happens on the front channel.</li>
+</ul>
+
+<p align="center">
+	<img src="https://user-images.githubusercontent.com/83104921/115947537-ec11fd00-a4e5-11eb-8c5f-e2363619ee2e.png" width="35%" />
+</p>
+
+<p>On wire (HTTP raw):  <br />
+Request</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET https://accounts.google.com/o/oauth2/auth?scope=gmail.insert gmail.send   
+&amp;redirect_uri=https://app.example.com/oauth2/callback    
+&amp;response_type=code&amp;client_id=812741506391    
+&amp;state=af0ifjsldkj   
+</code></pre></div></div>
+
+<p>Response</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 302 Found      
+Location: https://app.example.com/oauth2/callback?    
+code=MsCeLvIaQm6bTrgtp7&amp;state=af0ifjsldkj 
+</code></pre></div></div>
+
+<h4 id="end-channel-flow">End Channel Flow</h4>
+
+<p align="center">
+	<img src="https://user-images.githubusercontent.com/83104921/115947724-2d56dc80-a4e7-11eb-961b-f7a436ac3376.png" width="35%" />
+</p>
+
+<p>The Client application sends an access token request to the token endpoint on the Authorization Server with confidential client credentials and client id. This process exchanges an Authorization Code Grant for an Access Token and (optionally) a Refresh Token. Client accesses a protected resource with Access Token. <br />
+ON wire (HTTP raw)  :</p>
+
+<p><strong>Request</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /oauth2/v3/token HTTP/1.1    
+Host: www.googleapis.com     
+Content-Type: application/x-www-form-urlencoded    
+code=MsCeLvIaQm6bTrgtp7&amp;client_id=812741506391&amp;client_secret={client_secret}&amp;redirect_uri=https://app.example.com/oauth2/callback&amp;grant_type=authorization_code     
+</code></pre></div></div>
+
+<p><strong>Response</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "access_token": "2YotnFZFEjr1zCsicMWpAA",
+  "token_type": "Bearer",
+  "expires_in": 3600,
+  "refresh_token": "tGzv3JOkF0XG5Qx2TlKWIA"
+}
+</code></pre></div></div>
+
+
+	</div>
+</section>
+
+</div>
+
+    <!-- Contact -->
+<!-- section id="contact">
+	<div class="inner">
+		<section>
+			<form action="https://formspree.io/" method="POST">
+				<div class="field half first">
+					<label for="name">Name</label>
+					<input type="text" name="name" id="name" />
+				</div>
+				<div class="field half">
+					<label for="email">Email</label>
+					<input type="text" name="_replyto" id="email" />
+				</div>
+				<div class="field">
+					<label for="message">Message</label>
+					<textarea name="message" id="message" rows="6"></textarea>
+				</div>
+				<ul class="actions">
+					<li><input type="submit" value="Send Message" class="special" /></li>
+					<li><input type="reset" value="Clear" /></li>
+				</ul>
+			</form>
+		</section>
+		<section class="split">
+			<section>
+				<div class="contact-method">
+					<span class="icon alt fa-envelope"></span>
+					<h3>Email</h3>
+					<a href="mailto:"></a>
+				</div>
+			</section>
+			<section>
+				<div class="contact-method">
+					<span class="icon alt fa-phone"></span>
+					<h3>Phone</h3>
+					<a href="tel:"></a>
+				</div>
+			</section>
+			<section>
+				<div class="contact-method">
+					<span class="icon alt fa-home"></span>
+					<h3>Address</h3>
+					<span>
+					
+					
+					
+					
+					
+					</span>
+				</div>
+			</section>
+		</section>
+	</div>
+</section>
+
+	<footer id="footer">
+		<div class="inner">
+			<ul class="icons">
+				
+					
+						<li>
+							<a href="https://github.com/andrewbanchich" class="icon alt fa-github" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+								<span class="label">GitHub</span>
+							</a>
+						</li>
+					
+				
+					
+				
+					
+						<li>
+							<a href="https://plus.google.com/u/0/+AndrewBanchich" class="icon alt fa-google-plus" target="_blank" rel="noopener noreferrer" aria-label="Google-Plus">
+								<span class="label">Google-Plus</span>
+							</a>
+						</li>
+					
+				
+					
+				
+					
+						<li>
+							<a href="https://www.linkedin.com/in/andrew-banchich-a4ba1195" class="icon alt fa-linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+								<span class="label">LinkedIn</span>
+							</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="https://twitter.com/andrewbanchich" class="icon alt fa-twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+								<span class="label">Twitter</span>
+							</a>
+						</li>
+					
+				
+					
+				
+					
+				
+			</ul>
+			<ul class="copyright">
+				<li>&copy; Single Sign-On SSO</li>
+				<li>Design: <a href="https://html5up.net" target="_blank">HTML5 UP</a></li>
+				<li>Jekyll integration: <a href="http://andrewbanchi.ch" target="_blank">Andrew Banchich</a></li>
+
+			</ul>
+		</div>
+	</footer>
+
+</div-->
+
+<!-- Scripts -->
+	<script src="/SSO/assets/js/jquery.min.js"></script>
+	<script src="/SSO/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/SSO/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/SSO/assets/js/skel.min.js"></script>
+	<script src="/SSO/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/SSO/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/SSO/assets/js/main.js"></script>
+
+
+</body>
+
+</html>
